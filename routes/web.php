@@ -42,5 +42,5 @@ Route::prefix('dashboard')->group(function () {
     
     Route::resource('/services', DashboardServiceController::class)->except(['create', 'show', 'edit'])->middleware('auth');
     
-    Route::resource('/stylists', DashboardStylistController::class)->middleware('auth');
+    Route::resource('/stylists', DashboardStylistController::class)->except(['create', 'show', 'edit'])->middleware('auth');
 });
