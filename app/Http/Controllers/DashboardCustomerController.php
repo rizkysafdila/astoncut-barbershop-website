@@ -6,6 +6,7 @@ use App\Models\Customer;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
 use App\Models\Service;
+use App\Models\Stylist;
 
 class DashboardCustomerController extends Controller
 {
@@ -18,7 +19,7 @@ class DashboardCustomerController extends Controller
     {
         return view('dashboard.customers.index', [
             'title' => 'Customers',
-            'customers' => Customer::with('service')->get(),
+            'customers' => Customer::with('service','stylist')->get(),
         ]);
     }
 
@@ -30,8 +31,9 @@ class DashboardCustomerController extends Controller
     public function create()
     {
         return view('dashboard.customers.create', [
-            'title' => 'Add New Order',
+            'title' => 'Create New Order',
             'services' => Service::all(),
+            'stylists' => Stylist::where('status', '=', 1)->get()
         ]);
     }
 

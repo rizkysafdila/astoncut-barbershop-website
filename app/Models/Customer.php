@@ -10,10 +10,15 @@ class Customer extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
-    protected $with = ['service'];
+    protected $with = ['service', 'stylist'];
     
     public function service()
     {
         return $this->belongsTo(Service::class);
+    }
+
+    public function stylist()
+    {
+        return $this->belongsTo(Stylist::class);
     }
 }

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('phone');
             $table->string('address');
-            $table->
+            $table->tinyInteger('status')->default(1);
             $table->timestamps();
         });
     }

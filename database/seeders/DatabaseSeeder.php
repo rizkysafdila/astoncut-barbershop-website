@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Customer;
 use App\Models\Service;
+use App\Models\Stylist;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -58,6 +59,8 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Customer::factory(5)->create();
+
+        Stylist::factory(5)->create();
         
         // \App\Models\User::factory(10)->create();
 

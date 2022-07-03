@@ -14,7 +14,10 @@ class DashboardStylistController extends Controller
      */
     public function index()
     {
-        //
+        return view('dashboard.stylists.index', [
+            'title' => 'Stylists',
+            'stylists' => Stylist::all()
+        ]);
     }
 
     /**

@@ -29,9 +29,9 @@
         </a>
       </li>
       <li class="nav-item my-1">
-        <a class="nav-link {{ Request::is('dashboard/stylist*') ? 'active' : '' }}" href="/dashboard/stylist">
+        <a class="nav-link {{ Request::is('dashboard/stylists*') ? 'active' : '' }}" href="/dashboard/stylists">
           <i class="fa-duotone fa-user px-md-1 px-lg-3 py-2"></i>
-          Stylist
+          Stylists
         </a>
       </li>
       <li class="nav-item my-1">

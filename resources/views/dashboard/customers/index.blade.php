@@ -45,7 +45,7 @@
                         echo $hm[0] . ':' . $hm[1] . ' WIB';
                       @endphp
                     </td>
-                    <td>{{ $customer->stylist_id }}</td>
+                    <td>{{ $customer->stylist->name }}</td>
                     <td>
                       @if ($customer->status == 1)
                         <button type="button" class="btn btn-sm badge btn-warning text-dark">Pending</button>
@@ -56,9 +56,17 @@
                       @endif
                     </td>
                     <td>
-                      <a class="btn btn-sm btn-warning" href="#modalEdit{{ $loop->iteration }}" data-bs-toggle="modal">
-                        <i class="fa-regular fa-pen-to-square"></i>
-                      </a>
+                      @if ($customer->status == 2)
+                        <a class="btn btn-sm btn-primary" href="#modalPay{{ $loop->iteration }}" data-bs-toggle="modal">
+                          <i class="fa-regular fa-money-bill-simple-wave me-1"></i>
+                          Pay
+                        </a>
+                      @endif
+                      @if ($customer->status != 3)
+                        <a class="btn btn-sm btn-warning" href="#modalEdit{{ $loop->iteration }}" data-bs-toggle="modal">
+                          <i class="fa-regular fa-pen-to-square"></i>
+                        </a>
+                      @endif
                       <a class="btn btn-sm btn-danger" href="#modalDelete{{ $loop->iteration }}" data-bs-toggle="modal">
                         <i class="fa-regular fa-trash-can"></i>
                       </a>

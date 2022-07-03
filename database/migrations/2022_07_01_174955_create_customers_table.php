@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('service_id');
             $table->dateTime('time');
             $table->foreignId('stylist_id');
-            $table->integer('status');
+            $table->tinyInteger('status')->default(1);
             $table->timestamps();
         });
     }

@@ -17,7 +17,10 @@ class StylistFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => fake()->name(),
+            'phone' => fake()->phoneNumber(),
+            'address' => fake()->address(),
+            'status' => rand(1,2)
         ];
     }
 }

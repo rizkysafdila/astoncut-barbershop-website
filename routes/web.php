@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardServiceController;
+use App\Http\Controllers\DashboardStylistController;
 use App\Http\Controllers\DashboardCustomerController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
