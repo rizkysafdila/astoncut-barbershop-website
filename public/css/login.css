@@ -1,0 +1,27 @@
+* {
+    font-family: "Inter", sans-serif;
+}
+
+.bg-slate-900 {
+    background-color: #0f172a !important;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    background-color: #f8e5ce !important;
+    display: flex;
+    align-items: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background-color: #f5f5f5;
+}
+
+.form-login button[type="submit"] {
+    padding: 8px 16px;
+    font-size: 14px;
+    letter-spacing: 1px;
+}
