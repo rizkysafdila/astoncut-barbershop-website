@@ -103,6 +103,6 @@ class DashboardServiceController extends Controller
     public function destroy(Service $service)
     {
         Service::destroy($service->id);
-        return redirect('/dashboard/services')->with('success', 'Service has been deleted!');
+        return redirect('/dashboard/services')->with('success', "Service $service->service has been deleted!");
     }
 }

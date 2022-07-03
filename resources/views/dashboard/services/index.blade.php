@@ -68,7 +68,7 @@
                           <div class="modal-body">
                             <div class="mb-3">
                               <label for="service" class="form-label">Service</label>
-                              <input type="text" class="form-control @error('service') is-invalid @enderror" id="service" name="service" value="{{ old('service', $service->service) }}">
+                              <input type="text" class="form-control @error('service') is-invalid @enderror" id="service" name="service" value="{{ old('service', $service->service) }}" required autofocus>
                               @error('service')
                                 <div class="invalid-feedback">
                                   {{ $message }}
@@ -79,7 +79,7 @@
                               <label for="price" class="form-label">Price</label>
                               <div class="input-group">
                                 <span class="input-group-text" id="basic-addon1">Rp</span>
-                                <input type="text" class="form-control @error('price') is-invalid @enderror" id="price" name="price" aria-describedby="basic-addon1" value="{{ old('price', $service->price) }}">
+                                <input type="text" class="form-control @error('price') is-invalid @enderror" id="price" name="price" aria-describedby="basic-addon1" value="{{ old('price', $service->price) }}" required>
                               </div>
                               @error('price')
                                 <div class="invalid-feedback">
@@ -142,7 +142,7 @@
             <div class="modal-body">
               <div class="mb-3">
                 <label for="service" class="form-label">Service</label>
-                <input type="text" class="form-control @error('service') is-invalid @enderror" id="service" name="service" autofocus required>
+                <input type="text" class="form-control @error('service') is-invalid @enderror" id="service" name="service" required autofocus>
                 @error('service')
                   <div class="invalid-feedback">
                     {{ $message }}

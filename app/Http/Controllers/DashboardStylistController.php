@@ -38,7 +38,15 @@ class DashboardStylistController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'phone' => 'required|max:13',
+            'address' => 'required|max:255',
+        ]);
+
+        Stylist::create($validatedData);
+
+        return redirect('/dashboard/stylists')->with('success', 'New stylist has been added!');
     }
 
     /**
@@ -72,7 +80,17 @@ class DashboardStylistController extends Controller
      */
     public function update(Request $request, Stylist $stylist)
     {
-        //
+        $rules = [
+            'name' => 'required|max:255',
+            'phone' => 'required|max:13',
+            'address' => 'required|max:255',
+        ];
+
+        $validatedData = $request->validate($rules);
+
+        Stylist::where('id', $stylist->id)->update($validatedData);
+
+        return redirect('/dashboard/stylists')->with('success', 'Stylist has been updated!');
     }
 
     /**
@@ -83,6 +101,7 @@ class DashboardStylistController extends Controller
      */
     public function destroy(Stylist $stylist)
     {
-        //
+        Stylist::destroy($stylist->id);
+        return redirect('/dashboard/stylists')->with('success', "Stylist <b>$stylist->name</b> has been deleted!");
     }
 }

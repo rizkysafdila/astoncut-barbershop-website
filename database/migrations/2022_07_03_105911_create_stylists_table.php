@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('stylists', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('phone');
+            $table->string('phone', 13);
             $table->string('address');
             $table->tinyInteger('status')->default(1);
             $table->timestamps();

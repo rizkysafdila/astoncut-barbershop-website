@@ -18,7 +18,7 @@ class StylistFactory extends Factory
     {
         return [
             'name' => fake()->name(),
-            'phone' => fake()->phoneNumber(),
+            'phone' => fake()->unique()->numerify('852########'),
             'address' => fake()->address(),
             'status' => rand(1,2)
         ];
