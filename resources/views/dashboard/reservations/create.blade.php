@@ -3,35 +3,27 @@
 @section('container')
   <div class="row">
     <div class="col-sm-6">
-      <a class="btn btn-secondary mb-3" href="/dashboard/customers">
+      <a class="btn btn-secondary mb-3" href="/dashboard/my-reservations">
         <i class="fa-regular fa-chevron-left me-2"></i>
         Back
       </a>
       <div class="card">
         <div class="card-body">
-          <form action="/dashboard/customers" method="post">
+          <form action="/dashboard/my-reservations" method="post">
             @csrf
             <div class="mb-3">
               <label for="name" class="form-label">Customer Name</label>
-              <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" required autofocus>
-              @error('name')
-                <div class="invalid-feedback">
-                  {{ $message }}
-                </div>
-              @enderror
+              <input type="text" class="form-control" id="name" name="name" value="{{ auth()->user()->name }}" disabled>
+              <input type="hidden" name="name" value="{{ auth()->user()->name }}">
             </div>
 
             <div class="mb-3">
               <label for="phone" class="form-label">Phone Number</label>
               <div class="input-group">
                 <span class="input-group-text" id="basic-addon1">+62</span>
-                <input type="text" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" aria-describedby="basic-addon1" required>
+                <input type="text" class="form-control" id="phone" name="phone" aria-describedby="basic-addon1" value="{{ auth()->user()->phone }}" disabled>
+                <input type="hidden" name="phone" value="{{ auth()->user()->phone }}">
               </div>
-              @error('phone')
-                <div class="invalid-feedback">
-                  {{ $message }}
-                </div>
-              @enderror
             </div>
 
             <div class="mb-3">

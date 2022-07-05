@@ -5,7 +5,7 @@ $(document).ready(function () {
             "search": "",
             "searchPlaceholder": "Search...",
             "decimal": ",",
-            "thousands": "."
-        }
+            "thousands": ".",
+        },
     });
 });

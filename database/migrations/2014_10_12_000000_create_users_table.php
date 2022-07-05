@@ -23,6 +23,7 @@ return new class extends Migration
             $table->rememberToken();
             $table->string('photo')->nullable();
             $table->timestamps();
+            $table->boolean('is_admin')->default(false);
         });
     }
 

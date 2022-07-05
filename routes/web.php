@@ -1,12 +1,13 @@
 <?php
 
+use App\Models\Customer;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardServiceController;
 use App\Http\Controllers\DashboardStylistController;
 use App\Http\Controllers\DashboardCustomerController;
-use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+use App\Http\Controllers\CustomerReservationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,10 +36,19 @@ Route::prefix('dashboard')->group(function () {
     Route::get('/', function () {
         return view('dashboard.index', [
             'title' => 'Dashboard',
+            'customers' => Customer::with('service', 'stylist')->get(),
+            'confirmed_amount' => Customer::where('status', '=', 2)->count(),
+            'pending_amount' => Customer::where('status', '=', 1)->count(),
+            'canceled_amount' => Customer::where('status', '=', 3)->count(),
+            'change_time_amount' => Customer::where('status', '=', 4)->count(),
         ]);
     })->middleware('auth');
 
+    Route::resource('/my-reservations', CustomerReservationController::class)->middleware('customer');
+    Route::put('/my-reservations', [CustomerReservationController::class, 'updateStatus'])->middleware('customer');
+    
     Route::resource('/customers', DashboardCustomerController::class)->middleware('auth');
+    Route::put('/customers', [DashboardCustomerController::class, 'updateStatus'])->middleware('auth');
     
     Route::resource('/services', DashboardServiceController::class)->except(['create', 'show', 'edit'])->middleware('auth');
     

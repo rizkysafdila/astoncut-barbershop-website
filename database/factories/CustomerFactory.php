@@ -17,10 +17,11 @@ class CustomerFactory extends Factory
     public function definition()
     {
         return [
-            'name' => fake()->name(),
+            'name' => fake()->name('male'),
+            'phone' => fake()->unique()->numerify('852########'),
             'service_id' => rand(1, 7),
             'time' => fake()->dateTimeThisMonth('+5 Days'),
-            'status' => rand(1,3),
+            'status' => rand(1,4),
             'stylist_id' => rand(1,5)
         ];
     }
