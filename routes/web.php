@@ -47,25 +47,26 @@ Route::prefix('dashboard')->group(function () {
         ]);
     })->middleware('auth');
 
-    Route::resource('/my-reservations', CustomerReservationController::class)->except(['show', 'edit'])->middleware('customer');
+    Route::resource('/my-reservations', CustomerReservationController::class)->except(['show', 'edit', 'destroy'])->middleware('customer');
+    Route::put('/my-reservations', [CustomerReservationController::class, 'update'])->middleware('customer');
     Route::put('/my-reservations', [CustomerReservationController::class, 'updateStatus'])->middleware('customer');
     
-    Route::resource('/customers', DashboardCustomerController::class)->except('show')->middleware('auth');
-    Route::put('/customers', [DashboardCustomerController::class, 'updateStatus'])->middleware('auth');
+    Route::resource('/customers', DashboardCustomerController::class)->except('show')->middleware('admin');
+    Route::put('/customers', [DashboardCustomerController::class, 'updateStatus'])->middleware('admin');
 
-    Route::get('/transactions', [DashboardTransactionController::class, 'index'])->middleware('auth');
-    Route::post('/transactions', [DashboardTransactionController::class, 'store'])->middleware('auth');
-    Route::put('/transactions', [DashboardTransactionController::class, 'updateStatus'])->middleware('auth');
+    Route::get('/transactions', [DashboardTransactionController::class, 'index'])->middleware('admin');
+    Route::post('/transactions', [DashboardTransactionController::class, 'store'])->middleware('admin');
+    Route::put('/transactions', [DashboardTransactionController::class, 'updateStatus'])->middleware('admin');
     
-    Route::resource('/services', DashboardServiceController::class)->except(['create', 'show', 'edit'])->middleware('auth');
+    Route::resource('/services', DashboardServiceController::class)->except(['create', 'show', 'edit'])->middleware('admin');
     
-    Route::resource('/stylists', DashboardStylistController::class)->except(['create', 'show', 'edit'])->middleware('auth');
+    Route::resource('/stylists', DashboardStylistController::class)->except(['create', 'show', 'edit'])->middleware('admin');
 
     Route::get('/settings', [DashboardSettingController::class, 'index'])->middleware('auth');
     
-    Route::post('/payment-method', [DashboardPaymentMethodController::class, 'store'])->middleware('auth');
-    Route::put('/payment-method', [DashboardPaymentMethodController::class, 'update'])->middleware('auth');
-    Route::post('/delete-payment-method', [DashboardPaymentMethodController::class, 'destroy'])->middleware('auth');
+    Route::post('/payment-method', [DashboardPaymentMethodController::class, 'store'])->middleware('admin');
+    Route::put('/payment-method', [DashboardPaymentMethodController::class, 'update'])->middleware('admin');
+    Route::post('/delete-payment-method', [DashboardPaymentMethodController::class, 'destroy'])->middleware('admin');
 
     Route::put('/update-password', [UserController::class, 'updatePassword'])->middleware('auth');
 });

@@ -73,7 +73,7 @@
                     </td>
                   </tr>
 
-                  {{-- Modal Confirm Payment --}}
+                  {{-- Modal Payment Info --}}
                   <div class="modal fade" id="modalPaymentInfo{{ $loop->iteration }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                       <div class="modal-content">
@@ -84,14 +84,14 @@
                         <div class="modal-body">
                           <div class="row">
                             <div class="col">
-                              @if ($transaction->status == 1)
+                              @if ($transaction->payment_method == 1)
                                 Please make cash payment at the cashier
                               @else
                                 <div class="mb-3">
                                   <label for="rek_number" class="form-label">Please make payment to the following account number:</label>
                                   <div class="input-group mb-3">
                                     <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-university"></i></span>
-                                    <input type="text" class="form-control fw-semibold" id="rek_number" name="rek_number" aria-describedby="basic-addon1" value="{{ $transaction->paymentMethod->rek_number }}" disabled>
+                                    <input type="text" class="form-control fw-semibold" id="rek_number" name="rek_number" aria-describedby="basic-addon1" value="{{ $transaction->paymentMethod->acc_number }}" disabled>
                                   </div>
                                   <div class="input-group">
                                     <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-user"></i></span>
@@ -108,7 +108,7 @@
                       </div>
                     </div>
                   </div>
-                  {{-- End Modal Confirm Payment --}}
+                  {{-- End Modal Payment Info --}}
 
                   {{-- Modal Confirm Payment --}}
                   <div class="modal fade" id="modalPay{{ $loop->iteration }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

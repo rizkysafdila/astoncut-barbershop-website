@@ -91,9 +91,8 @@ class CustomerReservationController extends Controller
      * @param  \App\Models\Customer  $customer
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Customer $customer)
+    public function update(Request $request)
     {
-        dd($customer);
         $rules = [
             'name' => 'required|max:255',
             'phone' => 'required|max:13',
@@ -104,7 +103,9 @@ class CustomerReservationController extends Controller
 
         $validatedData = $request->validate($rules);
 
-        Customer::where('id', $customer->id)->update($validatedData);
+        $validatedData['status'] = 1;
+
+        Customer::where('id', $request['id'])->update($validatedData);
 
         return redirect('/dashboard/my-reservations')->with('success', 'Reservation has been updated!');
     }

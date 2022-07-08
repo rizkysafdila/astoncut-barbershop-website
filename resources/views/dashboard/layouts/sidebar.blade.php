@@ -73,11 +73,11 @@
           Settings
         </a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item mt-2">
         <form action="/logout" method="post">
           @csrf
           <button type="submit" class="dropdown-item">
-            <i class="fa-duotone fa-arrow-right-from-bracket  px-md-1 px-lg-3 py-2"></i>
+            <i class="fa-duotone fa-arrow-right-from-bracket px-md-1 px-lg-3 py-2"></i>
             Logout
           </button>
         </form>

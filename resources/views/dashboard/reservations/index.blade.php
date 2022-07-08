@@ -46,24 +46,25 @@
                     <td>{{ $customer->service->service }}</td>
                     <td>
                       {{ $customer->time }}
-                      {{-- @php
-                        $datetime = $customer->time;
-                        $time = explode(' ', $datetime);
-                        $hm = explode(':', $time[1]);
-                        
-                        $time = $hm[0] . ':' . $hm[1] . ' WIB';
-                        echo $time;
-                      @endphp --}}
                     </td>
                     <td>{{ $customer->stylist->name }}</td>
                     <td>
-                      @if ($customer->status == 1)
-                        <button type="button" class="btn btn-sm badge btn-warning text-dark">Pending</button>
-                      @elseif ($customer->status == 2)
-                        <button type="button" class="btn btn-sm badge btn-success">Confirmed</button>
-                      @elseif ($customer->status == 3)
-                        <button type="button" class="btn btn-sm badge btn-danger">Canceled</button>
-                      @endif
+                      @php
+                        if ($customer->status == 1) {
+                            $bg = 'btn-warning text-dark';
+                            $status = 'Pending';
+                        } elseif ($customer->status == 2) {
+                            $bg = 'btn-success';
+                            $status = 'Confirmed';
+                        } elseif ($customer->status == 3) {
+                            $bg = 'btn-danger';
+                            $status = 'Canceled';
+                        } elseif ($customer->status == 4) {
+                            $bg = 'btn-info text-dark';
+                            $status = 'Change Time';
+                        }
+                      @endphp
+                      <span class="btn btn-sm badge {{ $bg }}">{{ $status }}</span>
                     </td>
                     <td>
                       @if ($customer->status == 2)
@@ -90,10 +91,11 @@
                           <h5 class="modal-title" id="exampleModalLabel">Edit Reservation</h5>
                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form action="/dashboard/my-reservations/{{ $customer->id }}" method="post">
+                        <form action="/dashboard/my-reservations/" method="post">
                           @method('put')
                           @csrf
                           <div class="modal-body">
+                            <input type="hidden" name="id" value="{{ $customer->id }}">
                             <div class="mb-3">
                               <label for="name" class="form-label">Customer Name</label>
                               <input type="text" class="form-control" id="name" name="name" value="{{ auth()->user()->name }}" disabled>

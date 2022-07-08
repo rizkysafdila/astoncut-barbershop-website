@@ -30,11 +30,11 @@
                     <div class="col d-flex justify-content-between align-items-center">
                       <div>{{ $method->method }}</div>
                       <div>
-                        <a class="btn btn-sm btn-danger" href="#modalDelete{{ $loop->iteration }}" data-bs-toggle="modal">
-                          <i class="fa-regular fa-trash-can"></i>
-                        </a>
                         <a class="btn btn-sm btn-info" href="#modalEdit{{ $loop->iteration }}" data-bs-toggle="modal">
                           <i class="fa-regular fa-circle-exclamation"></i>
+                        </a>
+                        <a class="btn btn-sm btn-danger" href="#modalDelete{{ $loop->iteration }}" data-bs-toggle="modal">
+                          <i class="fa-regular fa-trash-can"></i>
                         </a>
                       </div>
                     </div>
@@ -117,6 +117,7 @@
             @csrf
             <div class="card-body">
               <div class="mb-3">
+                <input type="hidden" name="email" value="{{ auth()->user()->email }}">
                 <label for="password" class="form-label">New Password</label>
                 <div class="input-group mb-3">
                   <span class="input-group-text" id="basic-addon1"><i class="fa-regular fa-lock"></i></span>

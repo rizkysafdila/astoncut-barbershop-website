@@ -108,9 +108,7 @@ class DashboardCustomerController extends Controller
 
         $validatedData = $request->validate($rules);
 
-        if ($customer->time != $request->time || $customer->stylist_id != $request->stylist_id) {
-            $validatedData['status'] = 1;
-        }
+        $validatedData['status'] = 1;
         
         Customer::where('id', $customer->id)->update($validatedData);
 
