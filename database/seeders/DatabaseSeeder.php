@@ -25,10 +25,10 @@ class DatabaseSeeder extends Seeder
             'is_admin' => 1
         ]);
         
-        User::factory(1)->create([
-            'name' => 'Tajul',
-            'email' => 'tajul@gmail.com'
-        ]);
+        // User::factory(1)->create([
+        //     'name' => 'Tajul',
+        //     'email' => 'tajul@gmail.com'
+        // ]);
         
         Service::create([
             'service' => 'Regular Haircut',
@@ -65,7 +65,7 @@ class DatabaseSeeder extends Seeder
             'price' => 75000
         ]);
 
-        Customer::factory(7)->create();
+        Customer::factory(20)->create();
 
         Stylist::factory(5)->create();
 
