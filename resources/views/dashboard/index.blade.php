@@ -77,7 +77,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    @foreach ($customers as $customer)
+                    @foreach ($customers->only([1,2,3,4,5]) as $customer)
                       <tr>
                         <td>{{ $customer->name }}</td>
                         <td>{{ $customer->service->service }}</td>
@@ -104,40 +104,6 @@
                           <button type="button" class="btn btn-sm badge {{ $bg }}">{{ $status }}</button>
                         </td>
                       </tr>
-    
-                      {{-- Modal Update Status --}}
-                      <div class="modal fade" id="modalStatus{{ $loop->iteration }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title" id="exampleModalLabel">Update Reservation Status</h5>
-                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <form action="/dashboard/customers" method="post">
-                              @method('put')
-                              @csrf
-                              <div class="modal-body">
-                                <input type="hidden" name="id" value="{{ $customer->id }}">
-                                <div class="mb-3">
-                                  <label for="status" class="form-label">Status</label>
-                                  <select class="form-select" name="status" id="status" required>
-                                    <option class="text-muted" selected disabled>-Select One-</option>
-                                    <option value="1">Pending</option>
-                                    <option value="2">Confirmed</option>
-                                    <option value="3">Canceled</option>
-                                    <option value="4">Change Time</option>
-                                  </select>
-                                </div>
-                              </div>
-                              <div class="modal-footer">
-                                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">No</button>
-                                <button type="submit" class="btn btn-outline-danger">Yes</button>
-                              </div>
-                            </form>
-                          </div>
-                        </div>
-                      </div>
-                      {{-- End Modal Update Status --}}
                     @endforeach
                   </tbody>
                 </table>

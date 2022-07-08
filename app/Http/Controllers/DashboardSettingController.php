@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PaymentMethod;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class DashboardSettingController extends Controller
@@ -10,6 +12,7 @@ class DashboardSettingController extends Controller
     {
         return view('dashboard.settings.index', [
             'title' => 'Settings',
+            'methods' => PaymentMethod::all(),
         ]);
     }
 }

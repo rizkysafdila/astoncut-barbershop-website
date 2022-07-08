@@ -75,12 +75,12 @@ class DatabaseSeeder extends Seeder
 
         PaymentMethod::create([
             'method' => 'Shopeepay',
-            'rek_number' => '608082361002021',
+            'acc_number' => '608082361002021',
         ]);
 
         PaymentMethod::create([
             'method' => 'Link Aja',
-            'rek_number' => '082361002021',
+            'acc_number' => '082361002021',
         ]);
         
         // \App\Models\User::factory(10)->create();

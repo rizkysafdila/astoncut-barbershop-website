@@ -8,7 +8,9 @@ use App\Http\Controllers\DashboardSettingController;
 use App\Http\Controllers\DashboardStylistController;
 use App\Http\Controllers\DashboardCustomerController;
 use App\Http\Controllers\CustomerReservationController;
+use App\Http\Controllers\DashboardPaymentMethodController;
 use App\Http\Controllers\DashboardTransactionController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,7 +39,7 @@ Route::prefix('dashboard')->group(function () {
     Route::get('/', function () {
         return view('dashboard.index', [
             'title' => 'Dashboard',
-            'customers' => Customer::with('service', 'stylist')->get(),
+            'customers' => Customer::with('service', 'stylist')->latest()->get(),
             'confirmed_amount' => Customer::where('status', '=', 2)->count(),
             'pending_amount' => Customer::where('status', '=', 1)->count(),
             'canceled_amount' => Customer::where('status', '=', 3)->count(),
@@ -60,4 +62,10 @@ Route::prefix('dashboard')->group(function () {
     Route::resource('/stylists', DashboardStylistController::class)->except(['create', 'show', 'edit'])->middleware('auth');
 
     Route::get('/settings', [DashboardSettingController::class, 'index'])->middleware('auth');
+    
+    Route::post('/payment-method', [DashboardPaymentMethodController::class, 'store'])->middleware('auth');
+    Route::put('/payment-method', [DashboardPaymentMethodController::class, 'update'])->middleware('auth');
+    Route::post('/delete-payment-method', [DashboardPaymentMethodController::class, 'destroy'])->middleware('auth');
+
+    Route::put('/update-password', [UserController::class, 'updatePassword'])->middleware('auth');
 });

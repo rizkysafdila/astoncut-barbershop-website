@@ -84,17 +84,21 @@
                         <div class="modal-body">
                           <div class="row">
                             <div class="col">
-                              <div class="mb-3">
-                                <label for="rek_number" class="form-label">Please make payment to the following account number:</label>
-                                <div class="input-group mb-3">
-                                  <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-university"></i></span>
-                                  <input type="text" class="form-control fw-semibold" id="rek_number" name="rek_number" aria-describedby="basic-addon1" value="{{ $transaction->paymentMethod->rek_number }}" disabled>
+                              @if ($transaction->status == 1)
+                                Please make cash payment at the cashier
+                              @else
+                                <div class="mb-3">
+                                  <label for="rek_number" class="form-label">Please make payment to the following account number:</label>
+                                  <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-university"></i></span>
+                                    <input type="text" class="form-control fw-semibold" id="rek_number" name="rek_number" aria-describedby="basic-addon1" value="{{ $transaction->paymentMethod->rek_number }}" disabled>
+                                  </div>
+                                  <div class="input-group">
+                                    <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-user"></i></span>
+                                    <input type="text" class="form-control" id="on_behalf_of" name="on_behalf_of" aria-describedby="basic-addon1" value="Aston Cut Barbershop" disabled>
+                                  </div>
                                 </div>
-                                <div class="input-group">
-                                  <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-user"></i></span>
-                                  <input type="text" class="form-control" id="on_behalf_of" name="on_behalf_of" aria-describedby="basic-addon1" value="Aston Cut Barbershop" disabled>
-                                </div>
-                              </div>
+                              @endif
                             </div>
                           </div>
                         </div>
