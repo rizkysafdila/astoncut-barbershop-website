@@ -6,6 +6,7 @@ $(document).ready(function () {
             "searchPlaceholder": "Search...",
             "decimal": ",",
             "thousands": ".",
+            "emptyTable": "Not made a reservation yet"
         },
     });
 });

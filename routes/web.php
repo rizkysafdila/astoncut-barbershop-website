@@ -2,15 +2,16 @@
 
 use App\Models\Customer;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardServiceController;
 use App\Http\Controllers\DashboardSettingController;
 use App\Http\Controllers\DashboardStylistController;
 use App\Http\Controllers\DashboardCustomerController;
 use App\Http\Controllers\CustomerReservationController;
-use App\Http\Controllers\DashboardPaymentMethodController;
 use App\Http\Controllers\DashboardTransactionController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\DashboardPaymentMethodController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +36,9 @@ Route::controller(LoginController::class)->group(function () {
     Route::post('/logout', 'logout');
 });
 
+Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
+Route::post('/register', [RegisterController::class, 'store']);
+
 Route::prefix('dashboard')->group(function () {
     Route::get('/', function () {
         return view('dashboard.index', [
@@ -50,20 +54,20 @@ Route::prefix('dashboard')->group(function () {
     Route::resource('/my-reservations', CustomerReservationController::class)->except(['show', 'edit', 'destroy'])->middleware('customer');
     Route::put('/my-reservations', [CustomerReservationController::class, 'update'])->middleware('customer');
     Route::put('/my-reservations', [CustomerReservationController::class, 'updateStatus'])->middleware('customer');
-    
+
     Route::resource('/customers', DashboardCustomerController::class)->except('show')->middleware('admin');
     Route::put('/customers', [DashboardCustomerController::class, 'updateStatus'])->middleware('admin');
 
     Route::get('/transactions', [DashboardTransactionController::class, 'index'])->middleware('admin');
     Route::post('/transactions', [DashboardTransactionController::class, 'store'])->middleware('admin');
     Route::put('/transactions', [DashboardTransactionController::class, 'updateStatus'])->middleware('admin');
-    
+
     Route::resource('/services', DashboardServiceController::class)->except(['create', 'show', 'edit'])->middleware('admin');
-    
+
     Route::resource('/stylists', DashboardStylistController::class)->except(['create', 'show', 'edit'])->middleware('admin');
 
     Route::get('/settings', [DashboardSettingController::class, 'index'])->middleware('auth');
-    
+
     Route::post('/payment-method', [DashboardPaymentMethodController::class, 'store'])->middleware('admin');
     Route::put('/payment-method', [DashboardPaymentMethodController::class, 'update'])->middleware('admin');
     Route::post('/delete-payment-method', [DashboardPaymentMethodController::class, 'destroy'])->middleware('admin');

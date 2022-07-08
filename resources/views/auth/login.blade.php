@@ -8,6 +8,13 @@
   </div>
   <div class="row justify-content-center">
     <div class="col-md-4">
+      @if (session()->has('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          {{ session('success') }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      @endif
+
       @if (session()->has('loginError'))
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
           {{ session('loginError') }}
@@ -28,9 +35,12 @@
                 </div>
               @enderror
             </div>
-            <div class="mb-4">
+            <div class="mb-3">
               <label for="password" class="form-label">Password</label>
               <input type="password" class="form-control rounded-3" name="password" id="password" required>
+            </div>
+            <div class="mb-3 text-end" style="font-size: 14px">
+              Not registered? <a class="text-decoration-none" href="/register">Register Now</a>
             </div>
             <div class="text-end">
               <button type="submit" class="btn btn-dark bg-slate-900 rounded-3">LOGIN</button>
