@@ -22,6 +22,7 @@ return new class extends Migration
             $table->foreignId('stylist_id');
             $table->tinyInteger('status')->default(1);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

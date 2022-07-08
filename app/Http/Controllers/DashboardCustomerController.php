@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
 use App\Models\PaymentMethod;
+use App\Models\Transaction;
 
 class DashboardCustomerController extends Controller
 {
@@ -36,7 +37,7 @@ class DashboardCustomerController extends Controller
         return view('dashboard.customers.create', [
             'title' => 'Create New Reservation',
             'services' => Service::all(),
-            'stylists' => Stylist::where('status', '=', 1)->get()
+            'stylists' => Stylist::where('status', '=', 1)->get(),
         ]);
     }
 

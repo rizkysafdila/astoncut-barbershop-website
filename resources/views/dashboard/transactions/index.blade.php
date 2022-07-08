@@ -43,6 +43,11 @@
                     <td>{{ 'Rp' . number_format($transaction->price, 0, ',', '.') }}</td>
                     <td>
                       {{ $transaction->paymentMethod->method }}
+                      @if ($transaction->status == 1)
+                        <a class="btn btn-sm btn-info ms-1" href="#modalPaymentInfo{{ $loop->iteration }}" data-bs-toggle="modal">
+                          <i class="fa-regular fa-circle-exclamation"></i>
+                        </a>
+                      @endif
                     </td>
                     <td>
                       @php
@@ -60,35 +65,78 @@
                       <span class="badge {{ $bg }}">{{ $status }}</span>
                     </td>
                     <td>
-                      <a class="btn btn-sm btn-dark" href="#modalPay{{ $loop->iteration }}" data-bs-toggle="modal">
-                        <i class="fa-duotone fa-money-bill-simple-wave me-1"></i>
-                        Pay
-                      </a>
+                      @if ($transaction->status == 1)
+                        <a class="btn btn-sm btn-dark" href="#modalPay{{ $loop->iteration }}" data-bs-toggle="modal">
+                          <i class="fa-regular fa-check"></i>
+                        </a>
+                      @endif
                     </td>
                   </tr>
 
-                  {{-- Modal Pay --}}
+                  {{-- Modal Confirm Payment --}}
+                  <div class="modal fade" id="modalPaymentInfo{{ $loop->iteration }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Payment Informations</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <div class="row">
+                            <div class="col">
+                              <div class="mb-3">
+                                <label for="rek_number" class="form-label">Please make payment to the following account number:</label>
+                                <div class="input-group mb-3">
+                                  <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-university"></i></span>
+                                  <input type="text" class="form-control fw-semibold" id="rek_number" name="rek_number" aria-describedby="basic-addon1" value="{{ $transaction->paymentMethod->rek_number }}" disabled>
+                                </div>
+                                <div class="input-group">
+                                  <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-user"></i></span>
+                                  <input type="text" class="form-control" id="on_behalf_of" name="on_behalf_of" aria-describedby="basic-addon1" value="Aston Cut Barbershop" disabled>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  {{-- End Modal Confirm Payment --}}
+
+                  {{-- Modal Confirm Payment --}}
                   <div class="modal fade" id="modalPay{{ $loop->iteration }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel">Payment Process</h5>
+                          <h5 class="modal-title" id="exampleModalLabel">Confirm Payment</h5>
                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <form action="/dashboard/transactions" method="post">
+                          @method('put')
                           @csrf
                           <div class="modal-body">
-                            
+                            <input type="hidden" name="id" value="{{ $transaction->id }}">
+                            <input type="hidden" name="status" value="2">
+                            <div class="mb-3">
+                              <label for="status" class="form-label">Confirm Payment</label>
+                              <select class="form-select" name="status" id="status" required>
+                                <option value="2">Accepted</option>
+                                <option value="3">Declined</option>
+                              </select>
+                            </div>
                           </div>
                           <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-dark">Continue</button>
+                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-dark">Confirm</button>
                           </div>
                         </form>
                       </div>
                     </div>
                   </div>
-                  {{-- End Modal Pay --}}
+                  {{-- End Modal Confirm Payment --}}
                 @endforeach
               </tbody>
             </table>

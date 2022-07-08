@@ -65,23 +65,22 @@ class DatabaseSeeder extends Seeder
             'price' => 75000
         ]);
 
-        Customer::factory(5)->create();
+        Customer::factory(7)->create();
 
         Stylist::factory(5)->create();
 
         PaymentMethod::create([
             'method' => 'Cash',
-            'rek_number' => null
         ]);
 
         PaymentMethod::create([
             'method' => 'Shopeepay',
-            'rek_number' => '608082361002021'
+            'rek_number' => '608082361002021',
         ]);
 
         PaymentMethod::create([
             'method' => 'Link Aja',
-            'rek_number' => '082361002021'
+            'rek_number' => '082361002021',
         ]);
         
         // \App\Models\User::factory(10)->create();

@@ -73,7 +73,8 @@
                     <td>
                       @if ($customer->status == 2)
                         <a class="btn btn-sm btn-dark" href="#modalPay{{ $loop->iteration }}" data-bs-toggle="modal">
-                          <i class="fa-regular fa-check"></i>
+                          <i class="fa-duotone fa-money-bill-simple-wave me-1"></i>
+                          Pay
                         </a>
                       @elseif ($customer->status != 3)
                         <a class="btn btn-sm btn-warning" href="customers/{{ $customer->id }}/edit">
