@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Customer;
+use App\Models\PaymentMethod;
 use App\Models\Service;
 use App\Models\Stylist;
 use App\Models\User;
@@ -67,6 +68,21 @@ class DatabaseSeeder extends Seeder
         Customer::factory(5)->create();
 
         Stylist::factory(5)->create();
+
+        PaymentMethod::create([
+            'method' => 'Cash',
+            'rek_number' => null
+        ]);
+
+        PaymentMethod::create([
+            'method' => 'Shopeepay',
+            'rek_number' => '608082361002021'
+        ]);
+
+        PaymentMethod::create([
+            'method' => 'Link Aja',
+            'rek_number' => '082361002021'
+        ]);
         
         // \App\Models\User::factory(10)->create();
 

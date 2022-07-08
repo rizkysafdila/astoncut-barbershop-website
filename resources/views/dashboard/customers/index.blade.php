@@ -72,9 +72,8 @@
                     </td>
                     <td>
                       @if ($customer->status == 2)
-                        <a class="btn btn-sm btn-primary" href="#modalPay{{ $loop->iteration }}" data-bs-toggle="modal">
-                          <i class="fa-regular fa-money-bill-simple-wave me-1"></i>
-                          Pay
+                        <a class="btn btn-sm btn-dark" href="#modalPay{{ $loop->iteration }}" data-bs-toggle="modal">
+                          <i class="fa-regular fa-check"></i>
                         </a>
                       @elseif ($customer->status != 3)
                         <a class="btn btn-sm btn-warning" href="customers/{{ $customer->id }}/edit">
@@ -88,39 +87,148 @@
                     </td>
                   </tr>
 
-                  {{-- Modal Update Status --}}
-                  <div class="modal fade" id="modalStatus{{ $loop->iteration }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  {{-- Modal Pay --}}
+                  <div class="modal fade" id="modalPay{{ $loop->iteration }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel">Update Reservation Status</h5>
+                          <h5 class="modal-title" id="exampleModalLabel">Payment Process</h5>
                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form action="/dashboard/customers" method="post">
-                          @method('put')
+                        <form action="/dashboard/transactions" method="post">
                           @csrf
                           <div class="modal-body">
-                            <input type="hidden" name="id" value="{{ $customer->id }}">
+                            <input type="hidden" name="order_id" value="{{ $customer->id }}">
                             <div class="mb-3">
-                              <label for="status" class="form-label">Status</label>
-                              <select class="form-select" name="status" id="status" required>
-                                <option class="text-muted" selected disabled>-Select One-</option>
-                                <option value="1">Pending</option>
-                                <option value="2">Confirmed</option>
-                                <option value="3">Canceled</option>
-                                <option value="4">Change Time</option>
+                              <label for="name" class="form-label">Customer Name</label>
+                              <input type="text" class="form-control" id="name" name="name" value="{{ $customer->name }}" disabled>
+                              <input type="hidden" name="name" value="{{ $customer->name }}">
+                            </div>
+
+                            <div class="mb-3">
+                              <label for="phone" class="form-label">Phone Number</label>
+                              <div class="input-group">
+                                <span class="input-group-text" id="basic-addon1">+62</span>
+                                <input type="text" class="form-control" id="phone" name="phone" aria-describedby="basic-addon1" value="{{ $customer->phone }}" disabled>
+                                <input type="hidden" name="phone" value="{{ $customer->phone }}">
+                              </div>
+                            </div>
+
+                            <div class="mb-3">
+                              <label for="service_id" class="form-label">Service</label>
+                              <input type="text" class="form-control" id="service_id" name="service_id" value="{{ $customer->service->service }}" disabled>
+                              <input type="hidden" name="service_id" value="{{ $customer->service_id }}">
+                            </div>
+
+                            <div class="mb-3">
+                              <label for="price" class="form-label">Price</label>
+                              <input type="text" class="form-control" id="price" name="price" value="{{ 'Rp' . number_format($customer->service->price, 0, ',', '.') }}" disabled>
+                              <input type="hidden" name="price" value="{{ $customer->service->price }}">
+                            </div>
+
+                            <div class="mb-3">
+                              <label for="payment_method" class="form-label">Payment Method</label>
+                              <select class="form-select" name="payment_method" id="payment_method" required>
+                                @foreach ($methods as $method)
+                                  @if (old('payment_method') == $method->id)
+                                    <option value="{{ $method->id }}" selected>{{ $method->method }}</option>
+                                  @else
+                                    <option value="{{ $method->id }}">{{ $method->method }}</option>
+                                  @endif
+                                @endforeach
                               </select>
                             </div>
                           </div>
                           <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-dark">Update</button>
+                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-dark">Continue</button>
                           </div>
                         </form>
                       </div>
                     </div>
                   </div>
-                  {{-- End Modal Update Status --}}
+                  {{-- End Modal Pay --}}
+
+                  @if ($customer->status == 1)
+                    {{-- Modal Update Status --}}
+                    <div class="modal fade" id="modalStatus{{ $loop->iteration }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Update Reservation Status</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <form action="/dashboard/customers" method="post">
+                            @method('put')
+                            @csrf
+                            <div class="modal-body">
+                              <input type="hidden" name="id" value="{{ $customer->id }}">
+                              <div class="mb-3">
+                                <label for="status" class="form-label">Status</label>
+                                <select class="form-select" name="status" id="status" required>
+                                  <option value="1">Pending</option>
+                                  <option value="2">Confirmed</option>
+                                  <option value="3">Canceled</option>
+                                  <option value="4">Change Time</option>
+                                </select>
+                              </div>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                              <button type="submit" class="btn btn-dark">Update</button>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                    {{-- End Modal Update Status --}}
+                  @else
+                    {{-- Modal Status Alert --}}
+                    <div class="modal fade" id="modalStatus{{ $loop->iteration }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">
+                              <i class="fa-regular fa-circle-exclamation me-1"></i>
+                              Alert
+                            </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            Status can only be changed when it's still <span class="badge text-bg-warning">Pending</span>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    {{-- End Modal Status Alert --}}
+                  @endif
+
+                  {{-- Modal Delete --}}
+                  <div class="modal fade" id="modalDelete{{ $loop->iteration }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Delete Member</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form action="/dashboard/customers/{{ $customer->id }}" method="post">
+                          @method('delete')
+                          @csrf
+                          <div class="modal-body">
+                            <p class="fs-6">Are you sure want to delete reservation <b>{{ '#' . $customer->id }}</b> ?</p>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-outline-danger">Delete</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                  {{-- End Modal Delete --}}
                 @endforeach
               </tbody>
             </table>

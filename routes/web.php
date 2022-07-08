@@ -8,6 +8,8 @@ use App\Http\Controllers\DashboardServiceController;
 use App\Http\Controllers\DashboardStylistController;
 use App\Http\Controllers\DashboardCustomerController;
 use App\Http\Controllers\CustomerReservationController;
+use App\Http\Controllers\DashboardSettingController;
+use App\Http\Controllers\DashboardTransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,8 +51,13 @@ Route::prefix('dashboard')->group(function () {
     
     Route::resource('/customers', DashboardCustomerController::class)->middleware('auth');
     Route::put('/customers', [DashboardCustomerController::class, 'updateStatus'])->middleware('auth');
+
+    Route::get('/transactions', [DashboardTransactionController::class, 'index'])->middleware('auth');
+    Route::post('/transactions', [DashboardTransactionController::class, 'store'])->middleware('auth');
     
     Route::resource('/services', DashboardServiceController::class)->except(['create', 'show', 'edit'])->middleware('auth');
     
     Route::resource('/stylists', DashboardStylistController::class)->except(['create', 'show', 'edit'])->middleware('auth');
+
+    Route::get('/settings', [DashboardSettingController::class, 'index'])->middleware('auth');
 });

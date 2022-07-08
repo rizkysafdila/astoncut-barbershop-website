@@ -8,6 +8,7 @@ use App\Models\Customer;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
+use App\Models\PaymentMethod;
 
 class DashboardCustomerController extends Controller
 {
@@ -20,7 +21,8 @@ class DashboardCustomerController extends Controller
     {
         return view('dashboard.customers.index', [
             'title' => 'Customer Reservations',
-            'customers' => Customer::with('service','stylist')->latest()->get(),
+            'customers' => Customer::with('service', 'stylist')->latest()->get(),
+            'methods' => PaymentMethod::all(),
         ]);
     }
 
@@ -78,7 +80,7 @@ class DashboardCustomerController extends Controller
      */
     public function edit(Customer $customer)
     {
-        return view('dashboard.customers.edit',[
+        return view('dashboard.customers.edit', [
             'title' => 'Edit Customer Reservation',
             'customer' => $customer,
             'services' => Service::all(),
@@ -95,8 +97,6 @@ class DashboardCustomerController extends Controller
      */
     public function update(UpdateCustomerRequest $request, Customer $customer)
     {
-        // dd(old('stylist_id', $customer->stylist_id));
-
         $rules = [
             'name' => 'required|max:255',
             'phone' => 'required|max:13',
@@ -107,6 +107,10 @@ class DashboardCustomerController extends Controller
 
         $validatedData = $request->validate($rules);
 
+        if ($customer->time != $request->time || $customer->stylist_id != $request->stylist_id) {
+            $validatedData['status'] = 1;
+        }
+        
         Customer::where('id', $customer->id)->update($validatedData);
 
         return redirect('/dashboard/customers')->with('success', 'Reservation has been updated!');
@@ -120,7 +124,8 @@ class DashboardCustomerController extends Controller
      */
     public function destroy(Customer $customer)
     {
-        //
+        Customer::destroy($customer->id);
+        return redirect('/dashboard/customers')->with('success', "Reservation <b>$customer->id</b> has been deleted!");
     }
 
     public function updateStatus(Request $request)

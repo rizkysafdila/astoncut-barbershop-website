@@ -28,13 +28,14 @@
           </a>
         </li>
       @endcan
-      <li class="nav-item my-1">
-        <a class="nav-link {{ Request::is('dashboard/transactions*') ? 'active' : '' }}" href="/dashboard/transactions">
-          <i class="fa-duotone fa-money-bill-simple-wave px-md-1 px-lg-3 py-2"></i>
-          Transactions
-        </a>
-      </li>
+
       @can('admin')
+        <li class="nav-item my-1">
+          <a class="nav-link {{ Request::is('dashboard/transactions*') ? 'active' : '' }}" href="/dashboard/transactions">
+            <i class="fa-duotone fa-money-bill-simple-wave px-md-1 px-lg-3 py-2"></i>
+            Transactions
+          </a>
+        </li>
         <li class="nav-item my-1">
           <a class="nav-link {{ Request::is('dashboard/services*') ? 'active' : '' }}" href="/dashboard/services">
             <i class="fa-duotone fa-scissors px-md-1 px-lg-3 py-2"></i>
@@ -48,17 +49,17 @@
           </a>
         </li>
         {{-- <li class="nav-item my-1">
-        <a class="nav-link {{ Request::is('dashboard/products*') ? 'active' : '' }}" href="/dashboard/products">
-          <i class="fa-duotone fa-box px-md-1 px-lg-3 py-2"></i>
-          Products
-        </a>
-      </li> --}}
+          <a class="nav-link {{ Request::is('dashboard/products*') ? 'active' : '' }}" href="/dashboard/products">
+            <i class="fa-duotone fa-box px-md-1 px-lg-3 py-2"></i>
+            Products
+          </a>
+        </li>
         <li class="nav-item my-1">
           <a class="nav-link {{ Request::is('dashboard/report*') ? 'active' : '' }}" href="/dashboard/report">
             <i class="fa-duotone fa-chart-mixed px-md-1 px-lg-3 py-2"></i>
             Report
           </a>
-        </li>
+        </li> --}}
       @endcan
     </ul>
 
