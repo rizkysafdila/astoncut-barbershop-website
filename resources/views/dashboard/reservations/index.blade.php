@@ -67,12 +67,7 @@
                       <span class="btn btn-sm badge {{ $bg }}">{{ $status }}</span>
                     </td>
                     <td>
-                      @if ($customer->status == 2)
-                        <a class="btn btn-sm btn-primary" href="#modalPay{{ $loop->iteration }}" data-bs-toggle="modal">
-                          <i class="fa-regular fa-money-bill-simple-wave me-1"></i>
-                          Pay
-                        </a>
-                      @elseif ($customer->status != 3)
+                      @if ($customer->status == 1)
                         <a class="btn btn-sm btn-warning" href="#modalEdit{{ $loop->iteration }}" data-bs-toggle="modal">
                           <i class="fa-regular fa-pen-to-square"></i>
                         </a>
