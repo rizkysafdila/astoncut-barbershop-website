@@ -67,7 +67,7 @@
                       <span class="btn btn-sm badge {{ $bg }}">{{ $status }}</span>
                     </td>
                     <td>
-                      @if ($customer->status == 1)
+                      @if ($customer->status == 1 || $customer->status == 4)
                         <a class="btn btn-sm btn-warning" href="#modalEdit{{ $loop->iteration }}" data-bs-toggle="modal">
                           <i class="fa-regular fa-pen-to-square"></i>
                         </a>
@@ -87,7 +87,7 @@
                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <form action="/dashboard/my-reservations/" method="post">
-                          @method('put')
+                          {{-- @method('put') --}}
                           @csrf
                           <div class="modal-body">
                             <input type="hidden" name="id" value="{{ $customer->id }}">

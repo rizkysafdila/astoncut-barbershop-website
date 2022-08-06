@@ -43,7 +43,7 @@ Route::prefix('dashboard')->group(function () {
     Route::get('/', function () {
         return view('dashboard.index', [
             'title' => 'Dashboard',
-            'customers' => Customer::with('service', 'stylist')->latest()->get(),
+            'customers' => Customer::with('service', 'stylist')->latest('time')->take(5)->get(),
             'confirmed_amount' => Customer::where('status', '=', 2)->count(),
             'pending_amount' => Customer::where('status', '=', 1)->count(),
             'canceled_amount' => Customer::where('status', '=', 3)->count(),
@@ -52,7 +52,7 @@ Route::prefix('dashboard')->group(function () {
     })->middleware('auth');
 
     Route::resource('/my-reservations', CustomerReservationController::class)->except(['show', 'edit', 'destroy'])->middleware('customer');
-    Route::put('/my-reservations', [CustomerReservationController::class, 'update'])->middleware('customer');
+    Route::post('/my-reservations', [CustomerReservationController::class, 'update'])->middleware('customer');
     Route::put('/my-reservations', [CustomerReservationController::class, 'updateStatus'])->middleware('customer');
 
     Route::resource('/customers', DashboardCustomerController::class)->except('show')->middleware('admin');

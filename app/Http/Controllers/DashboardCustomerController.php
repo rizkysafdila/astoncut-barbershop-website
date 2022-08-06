@@ -22,7 +22,7 @@ class DashboardCustomerController extends Controller
     {
         return view('dashboard.customers.index', [
             'title' => 'Customer Reservations',
-            'customers' => Customer::with('service', 'stylist')->latest()->get(),
+            'customers' => Customer::with('service', 'stylist')->latest('time')->get(),
             'methods' => PaymentMethod::all(),
         ]);
     }

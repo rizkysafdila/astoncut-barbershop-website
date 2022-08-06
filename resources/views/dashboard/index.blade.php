@@ -77,7 +77,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    @foreach ($customers->only([1,2,3,4,5]) as $customer)
+                    @foreach ($customers as $customer)
                       <tr>
                         <td>{{ $customer->name }}</td>
                         <td>{{ $customer->service->service }}</td>

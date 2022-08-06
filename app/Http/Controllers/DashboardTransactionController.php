@@ -47,6 +47,6 @@ class DashboardTransactionController extends Controller
 
         Transaction::where('id', $request['id'])->update($validatedData);
 
-        return redirect('/dashboard/transactions')->with('success', 'Transaction success!');
+        return redirect('/dashboard/transactions')->with('success', 'Transaction updated!');
     }
 }

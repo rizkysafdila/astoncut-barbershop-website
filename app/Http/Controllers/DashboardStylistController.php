@@ -102,6 +102,6 @@ class DashboardStylistController extends Controller
     public function destroy(Stylist $stylist)
     {
         Stylist::destroy($stylist->id);
-        return redirect('/dashboard/stylists')->with('success', "Stylist <b>$stylist->name</b> has been deleted!");
+        return redirect('/dashboard/stylists')->with('success', "Stylist $stylist->name has been deleted!");
     }
 }
